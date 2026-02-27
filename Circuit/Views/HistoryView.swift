@@ -3,6 +3,7 @@ import SwiftData
 
 struct HistoryView: View {
     @Query(sort: \Session.date, order: .reverse) private var sessions: [Session]
+    @Query(sort: \SelfNote.date, order: .reverse) private var notes: [SelfNote]
 
     var body: some View {
         ZStack {
@@ -15,6 +16,10 @@ struct HistoryView: View {
                         .foregroundStyle(Color.black.opacity(0.75))
 
                     SummaryCard(sessions: sessions)
+
+                    if !notes.isEmpty {
+                        NotesSection(notes: notes)
+                    }
 
                     VStack(spacing: 12) {
                         ForEach(sessions) { session in
@@ -53,6 +58,44 @@ private struct SummaryCard: View {
             RoundedRectangle(cornerRadius: 24, style: .continuous)
                 .fill(Color.white.opacity(0.8))
                 .shadow(color: Color.black.opacity(0.06), radius: 10, x: 0, y: 6)
+        )
+    }
+}
+
+private struct NotesSection: View {
+    let notes: [SelfNote]
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text("Self messages")
+                .font(.headline)
+                .foregroundStyle(Color.black.opacity(0.7))
+
+            VStack(spacing: 12) {
+                ForEach(notes) { note in
+                    VStack(alignment: .leading, spacing: 6) {
+                        Text("\"\(note.text)\"")
+                            .font(.subheadline)
+                            .foregroundStyle(Color.black.opacity(0.8))
+                        Text(note.date.formatted(date: .abbreviated, time: .shortened))
+                            .font(.caption)
+                            .foregroundStyle(Color.black.opacity(0.5))
+                    }
+                    .padding(16)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .background(
+                        RoundedRectangle(cornerRadius: 20, style: .continuous)
+                            .fill(Color.white.opacity(0.85))
+                    )
+                }
+            }
+        }
+        .padding(16)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(
+            RoundedRectangle(cornerRadius: 24, style: .continuous)
+                .fill(Color.white.opacity(0.9))
+                .shadow(color: Color.black.opacity(0.05), radius: 8, x: 0, y: 4)
         )
     }
 }

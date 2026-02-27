@@ -16,6 +16,6 @@ struct CircuitApp: App {
                     }
                 }
         }
-        .modelContainer(for: [Session.self, MicroAction.self])
+        .modelContainer(for: [Session.self, MicroAction.self, SelfNote.self])
     }
 }
