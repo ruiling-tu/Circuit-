@@ -16,6 +16,11 @@ struct RootTabView: View {
                     Label("History", systemImage: "clock.arrow.circlepath")
                 }
 
+            PatternsView()
+                .tabItem {
+                    Label("Patterns", systemImage: "sparkles")
+                }
+
             SettingsView()
                 .tabItem {
                     Label("Settings", systemImage: "gearshape")

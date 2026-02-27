@@ -7,6 +7,7 @@ final class MicroAction {
     var title: String
     var isDefault: Bool
     var isEnabled: Bool
+    var isFavorite: Bool
     var order: Int
 
     init(
@@ -14,12 +15,14 @@ final class MicroAction {
         title: String,
         isDefault: Bool = false,
         isEnabled: Bool = true,
+        isFavorite: Bool = false,
         order: Int = 0
     ) {
         self.id = id
         self.title = title
         self.isDefault = isDefault
         self.isEnabled = isEnabled
+        self.isFavorite = isFavorite
         self.order = order
     }
 }

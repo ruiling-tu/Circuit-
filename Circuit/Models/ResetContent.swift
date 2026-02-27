@@ -4,7 +4,6 @@ struct FeelingStateOption: Identifiable, Hashable {
     let id: String
     let title: String
     let distortions: [DistortionOption]
-    let physioMode: PhysioMode
 }
 
 struct DistortionOption: Identifiable, Hashable {
@@ -14,9 +13,10 @@ struct DistortionOption: Identifiable, Hashable {
 }
 
 enum PhysioMode: String, CaseIterable {
-    case breathing46
-    case physiologicalSigh
-    case grounding54321
+    case breathing
+    case boxBreathing
+    case grounding
+    case orienting
     case postureLift
 }
 
@@ -53,8 +53,7 @@ enum ResetContent {
                         "If I delay, what’s the real impact?"
                     ]
                 )
-            ],
-            physioMode: .breathing46
+            ]
         ),
         FeelingStateOption(
             id: "anxious",
@@ -96,8 +95,7 @@ enum ResetContent {
                         "What’s one thing that is working?"
                     ]
                 )
-            ],
-            physioMode: .breathing46
+            ]
         ),
         FeelingStateOption(
             id: "irritated",
@@ -130,8 +128,7 @@ enum ResetContent {
                         "What’s a fairer description?"
                     ]
                 )
-            ],
-            physioMode: .physiologicalSigh
+            ]
         ),
         FeelingStateOption(
             id: "scattered",
@@ -164,8 +161,7 @@ enum ResetContent {
                         "What can I remove?"
                     ]
                 )
-            ],
-            physioMode: .grounding54321
+            ]
         ),
         FeelingStateOption(
             id: "low",
@@ -198,8 +194,7 @@ enum ResetContent {
                         "What’s one thing that is temporary?"
                     ]
                 )
-            ],
-            physioMode: .postureLift
+            ]
         ),
         FeelingStateOption(
             id: "pressure",
@@ -232,8 +227,7 @@ enum ResetContent {
                         "What’s within my control right now?"
                     ]
                 )
-            ],
-            physioMode: .breathing46
+            ]
         )
     ]
 

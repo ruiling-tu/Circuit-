@@ -14,7 +14,7 @@ enum MicroActionSeeder {
         ]
 
         for (index, title) in defaults.enumerated() {
-            let action = MicroAction(title: title, isDefault: true, isEnabled: true, order: index)
+            let action = MicroAction(title: title, isDefault: true, isEnabled: true, isFavorite: false, order: index)
             context.insert(action)
         }
 
