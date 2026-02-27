@@ -1,32 +1,21 @@
-//
-//  CircuitApp.swift
-//  Circuit
-//
-//  Created by Ruiling Tu on 2/27/26.
-//
-
 import SwiftUI
 import SwiftData
+import UserNotifications
 
 @main
 struct CircuitApp: App {
-    var sharedModelContainer: ModelContainer = {
-        let schema = Schema([
-            Item.self,
-        ])
-        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
-
-        do {
-            return try ModelContainer(for: schema, configurations: [modelConfiguration])
-        } catch {
-            fatalError("Could not create ModelContainer: \(error)")
-        }
-    }()
+    private let notificationDelegate = NotificationDelegate()
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            RootTabView()
+                .onAppear {
+                    UNUserNotificationCenter.current().delegate = notificationDelegate
+                    Task {
+                        await NotificationEngagementTracker.evaluateIgnoredNudges()
+                    }
+                }
         }
-        .modelContainer(sharedModelContainer)
+        .modelContainer(for: [Session.self, MicroAction.self])
     }
 }
