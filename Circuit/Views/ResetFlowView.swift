@@ -589,17 +589,30 @@ private struct MicroActionView: View {
                 .font(.title2.weight(.semibold))
                 .foregroundStyle(Color.black.opacity(0.75))
 
-            VStack(spacing: 12) {
-                ForEach(orderedActions) { action in
-                    HStack {
-                        CardButton(title: action.title) {
-                            onSelect(action)
-                        }
-                        Button {
-                            action.isFavorite.toggle()
-                            try? modelContext.save()
-                        } label: {
-                            Image(systemName: action.isFavorite ? "star.fill" : "star")
+            if orderedActions.isEmpty {
+                VStack(spacing: 12) {
+                    Text("No actions yet")
+                        .font(.subheadline)
+                        .foregroundStyle(Color.black.opacity(0.6))
+
+                    Button("Add defaults") {
+                        MicroActionSeeder.forceSeed(context: modelContext)
+                    }
+                    .buttonStyle(.borderedProminent)
+                }
+            } else {
+                VStack(spacing: 12) {
+                    ForEach(orderedActions) { action in
+                        HStack {
+                            CardButton(title: action.title) {
+                                onSelect(action)
+                            }
+                            Button {
+                                action.isFavorite.toggle()
+                                try? modelContext.save()
+                            } label: {
+                                Image(systemName: action.isFavorite ? "star.fill" : "star")
+                            }
                         }
                     }
                 }

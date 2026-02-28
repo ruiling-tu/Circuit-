@@ -5,7 +5,14 @@ enum MicroActionSeeder {
     static func seedIfNeeded(context: ModelContext) {
         let fetch = FetchDescriptor<MicroAction>()
         guard (try? context.fetch(fetch))?.isEmpty ?? true else { return }
+        seedDefaults(context: context)
+    }
 
+    static func forceSeed(context: ModelContext) {
+        seedDefaults(context: context)
+    }
+
+    private static func seedDefaults(context: ModelContext) {
         let defaults = [
             "Send one message",
             "Write one sentence",
